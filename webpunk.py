@@ -30,7 +30,7 @@ if (page =="Home"):
     model = load_model('./decodervaenosigmoid_punk.h5',compile=False)
     model2 = load_model('./decoderbetavae1000_punk.h5',compile=False)
 
-    r = np.zeros((1,576))
+    r = np.random.randn(1,576)
 
     image = Image.open('./punks.png')
     # model = load_model('./decoder576final_punk.h5',compile=False)
