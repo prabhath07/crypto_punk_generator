@@ -24,11 +24,10 @@ page = st.sidebar.selectbox(label='models',options=(
     "Beta-VAE 2 ",
     "Latent Space properties"
 ))
-                        
-if (page =="Home"):
-    
-    model = load_model('./decodervaenosigmoid_punk.h5',compile=False)
-    model2 = load_model('./decoderbetavae1000_punk.h5',compile=False)
+model = load_model('./decodervaenosigmoid_punk.h5',compile=False)
+model2 = load_model('./decoderbetavae1000_punk.h5',compile=False)                       
+if (page =="Home"): 
+
 
     r = np.random.randn(1,576)
 
@@ -94,11 +93,6 @@ if (page =="Home"):
 
 
 elif(page =="VAE"):
-    
-    model = load_model('./decodervaenosigmoid_punk.h5',compile = False)
-
-
-
     preds = model.predict(np.random.randn(400,576))
 
     def plot_images(rows, cols, images):
@@ -121,8 +115,7 @@ elif(page =="VAE"):
 
 elif(page =="Beta-VAE"):
     
-    model = load_model('./decoderbetavae1000_punk.h5',compile = False)
-    preds = model.predict(np.random.randn(400,576))
+    preds = model2.predict(np.random.randn(400,576))
 
     def plot_images(rows, cols, images):
         grid = np.zeros(shape=(rows*24, cols*24,3))
@@ -144,8 +137,7 @@ elif(page =="Beta-VAE"):
 
 elif(page =="Beta-VAE 2 "):
     
-    model = load_model('./decoderbetavae1000_punk.h5',compile = False)
-    preds = model.predict(np.random.randn(400,576))
+    preds = model2.predict(np.random.randn(400,576))
 
     def plot_images(rows, cols, images):
         grid = np.zeros(shape=(rows*24, cols*24,3))
