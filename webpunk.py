@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from tensorflow.keras.models import load_model
 import pickle as pkl 
 import seaborn as sns
-import plotly.figure_factory as ff
 st.set_page_config(layout="wide")
 
 padding = 3
@@ -24,12 +23,13 @@ page = st.sidebar.selectbox(label='models',options=(
     "Beta-VAE 2 ",
     "Latent Space properties"
 ))
-model = load_model('./decodervaenosigmoid_punk.h5',compile=False)
-model2 = load_model('./decoderbetavae1000_punk.h5',compile=False)                       
-if (page =="Home"): 
+                        
+if (page =="Home"):
+    
+    model = load_model('./decodervaenosigmoid_punk.h5',compile=False)
+    model2 = load_model('./decoderbetavae1000_punk.h5',compile=False)
 
-
-    r = np.random.randn(1,576)
+    r = np.zeros((1,576))
 
     image = Image.open('./punks.png')
     # model = load_model('./decoder576final_punk.h5',compile=False)
@@ -93,6 +93,11 @@ if (page =="Home"):
 
 
 elif(page =="VAE"):
+    
+    model = load_model('./decodervaenosigmoid_punk.h5',compile = False)
+
+
+
     preds = model.predict(np.random.randn(400,576))
 
     def plot_images(rows, cols, images):
@@ -103,19 +108,20 @@ elif(page =="VAE"):
 
         return grid
 
-    st.header("Randomly generated images with VAE ")
+    st.header("Randomly generated 400 images with VAE ")
     n= st.number_input("number of images to be generated",25,400,100)
     number =int( math.sqrt(n))
     img = plot_images(number,number,preds)
     img = np.clip(img,0,1)
-    st.image(img,width = 400)
+    st.image(img,width = 500)
     st.text('These are '+str(n)+' Images created using Variational Auto Encoder with latent-space of 576.')
 
 
 
 elif(page =="Beta-VAE"):
     
-    preds = model2.predict(np.random.randn(400,576))
+    model = load_model('./decoderbetavae1000_punk.h5',compile = False)
+    preds = model.predict(np.random.randn(400,576))
 
     def plot_images(rows, cols, images):
         grid = np.zeros(shape=(rows*24, cols*24,3))
@@ -130,14 +136,15 @@ elif(page =="Beta-VAE"):
     number =int( math.sqrt(n))
     img = plot_images(number,number,preds)
     img = np.clip(img,0,1)
-    st.image(img,width = 400)
+    st.image(img,width = 500)
     st.text(str(n)+' Images created using Beta Variational Auto Encoder with latent-space of 576.')
     st.text('In this proces the Beta is considered as 0.02 to be in scale with reconstruction loss .')
     st.text('at the same time have an emphasis on KL-Loss')
 
 elif(page =="Beta-VAE 2 "):
     
-    preds = model2.predict(np.random.randn(400,576))
+    model = load_model('./decoderbetavae1000_punk.h5',compile = False)
+    preds = model.predict(np.random.randn(400,576))
 
     def plot_images(rows, cols, images):
         grid = np.zeros(shape=(rows*24, cols*24,3))
@@ -184,4 +191,3 @@ elif(page == "Latent Space properties"):
         fig=plt.show()
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.pyplot(fig)
-        
