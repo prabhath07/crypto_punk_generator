@@ -108,12 +108,12 @@ elif(page =="VAE"):
 
         return grid
 
-    st.header("Randomly generated 400 images with VAE ")
+    st.header("Randomly generated images with VAE ")
     n= st.number_input("number of images to be generated",25,400,100)
     number =int( math.sqrt(n))
     img = plot_images(number,number,preds)
     img = np.clip(img,0,1)
-    st.image(img,width = 500)
+    st.image(img,width = 400)
     st.text('These are '+str(n)+' Images created using Variational Auto Encoder with latent-space of 576.')
 
 
@@ -136,7 +136,7 @@ elif(page =="Beta-VAE"):
     number =int( math.sqrt(n))
     img = plot_images(number,number,preds)
     img = np.clip(img,0,1)
-    st.image(img,width = 500)
+    st.image(img,width = 400)
     st.text(str(n)+' Images created using Beta Variational Auto Encoder with latent-space of 576.')
     st.text('In this proces the Beta is considered as 0.02 to be in scale with reconstruction loss .')
     st.text('at the same time have an emphasis on KL-Loss')
