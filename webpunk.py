@@ -103,7 +103,7 @@ elif(page =="VAE"):
 
         return grid
 
-    st.header("Randomly generated 400 images with VAE ")
+    st.header("Randomly generated images with VAE ")
     n= st.number_input("number of images to be generated",25,400,100)
     number =int( math.sqrt(n))
     img = plot_images(number,number,preds)
